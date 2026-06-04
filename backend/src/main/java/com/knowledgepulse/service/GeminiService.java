@@ -39,6 +39,9 @@ public class GeminiService {
         ObjectNode content = root.putObject("content");
         ArrayNode parts = content.putArray("parts");
         parts.addObject().put("text", text);
+        // gemini-embedding-001 defaults to 3072 dims; request the configured size
+        // (768) so it matches the vector(768) column and pgvector's index limit.
+        root.put("outputDimensionality", props.getGemini().getEmbeddingDimensions());
 
         try {
             JsonNode resp = geminiWebClient.post()
