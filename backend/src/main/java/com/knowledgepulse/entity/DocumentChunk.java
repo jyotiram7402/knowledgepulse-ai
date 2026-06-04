@@ -2,6 +2,7 @@ package com.knowledgepulse.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -42,6 +43,7 @@ public class DocumentChunk {
     // produced by toString() on a float[]; we map it through a converter.
     @Column(name = "embedding", columnDefinition = "vector(768)")
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @ColumnTransformer(write = "CAST(? AS vector)")
     private String embedding;
 
     @CreationTimestamp
