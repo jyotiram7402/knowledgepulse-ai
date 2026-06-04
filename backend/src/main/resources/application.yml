@@ -1,0 +1,82 @@
+spring:
+  application:
+    name: knowledgepulse-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:prod}
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 25MB
+      max-request-size: 25MB
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /api/v1
+  compression:
+    enabled: true
+  error:
+    include-message: always
+    include-binding-errors: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+knowledgepulse:
+  jwt:
+    secret: ${JWT_SECRET}
+    expirationMs: ${JWT_EXPIRATION_MS:86400000}
+    issuer: knowledgepulse-ai
+  cors:
+    allowedOrigins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+  admin:
+    email: ${ADMIN_EMAIL:admin@knowledgepulse.ai}
+    password: ${ADMIN_PASSWORD:ChangeMe!123}
+  gemini:
+    apiKey: ${GEMINI_API_KEY}
+    chatModel: ${GEMINI_CHAT_MODEL:gemini-1.5-flash}
+    embeddingModel: ${GEMINI_EMBEDDING_MODEL:text-embedding-004}
+    baseUrl: https://generativelanguage.googleapis.com/v1beta
+    embeddingDimensions: 768
+  cloudinary:
+    cloudName: ${CLOUDINARY_CLOUD_NAME}
+    apiKey: ${CLOUDINARY_API_KEY}
+    apiSecret: ${CLOUDINARY_API_SECRET}
+    folder: knowledgepulse
+  rag:
+    chunkSize: 900
+    chunkOverlap: 150
+    topK: 5
+    similarityThreshold: 0.20
+
+logging:
+  level:
+    root: INFO
+    com.knowledgepulse: INFO
+    org.springframework.security: WARN
