@@ -96,7 +96,7 @@
 
         <dependency>
             <groupId>com.cloudinary</groupId>
-            <artifactId>cloudinary-http5</artifactId>
+            <artifactId>cloudinary-http44</artifactId>
             <version>${cloudinary.version}</version>
         </dependency>
 
