@@ -14,7 +14,13 @@ frontend/.vite/
 # Env
 .env
 *.env
+.env.local
+.env.*.local
 !.env.example
+
+# Claude Code: personal, machine-local files (shared CLAUDE.md files ARE committed)
+CLAUDE.local.md
+.claude/settings.local.json
 
 # IDE / OS
 .idea/
